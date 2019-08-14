@@ -19,7 +19,7 @@ class Kdpart(MakefilePackage):
 
     def edit(self, spec, prefix):
         makefile = FileFilter('Makefile')
-        makefile.filter('CXX = .*', 'CXX = ' + env['CXX'])
+        makefile.filter('CXX = .*', 'CXX = ' + spec['mpi'].mpicxx)
 
     @property
     def build_targets(self):
