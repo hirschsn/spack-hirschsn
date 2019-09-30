@@ -20,8 +20,8 @@ class P4estLahnerml(AutotoolsPackage):
     variant('blas', default=True, description='Enable BLAS')
     variant('lapack', default=True, description='Enable Lapack')
 
-    #depends_on('automake', type='build')
-    #depends_on('autoconf', type='build')
+    depends_on('automake', type='build')
+    depends_on('autoconf', type='build')
     depends_on('libtool@2.4.2', type='build')
 
     depends_on('mpi')
