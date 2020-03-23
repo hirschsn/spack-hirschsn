@@ -1,6 +1,6 @@
 # Spack repo
 
-This is a [spack](https://spack.io/) package repo for some of my projects.
+This is a [spack](https://spack.io/) package repo for some of my and other projects.
 
 ## Install
 
