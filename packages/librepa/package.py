@@ -18,11 +18,11 @@ class Librepa(CMakePackage):
     variant('kdpart', default=True, description='Enable kdpart-based load-balancer')
     variant('parmetis', default=True, description='Enable ParMETIS-based load-balancer')
 
-    depends_on('cmake@3.12.0:', type='build')
+    depends_on('cmake@3.13.0:', type='build')
 
     depends_on('mpi')
-    # Repa currently needs boost 1.67.0 or 1.68.0
-    depends_on('boost+serialization+mpi@1.67.0')
+    depends_on('boost+serialization+mpi@1.67.0,1.68.0,1.72.0:')
+    depends_on('boost+test@1.67.0,1.68.0,1.72.0:', type='test')
     depends_on('p4est-lahnerml', when='+p4est')
     depends_on('kdpart', when='+kdpart')
     depends_on('parmetis+shared', when='+parmetis')
@@ -31,11 +31,14 @@ class Librepa(CMakePackage):
 
     def cmake_args(self):
         spec = self.spec
-        return [
+        args = [
             "-DWITH_P4EST={}".format("ON" if "+p4est" in spec else "OFF"),
             "-DWITH_KDPART={}".format("ON" if "+kdpart" in spec else "OFF"),
             "-DWITH_PARMETIS={}".format("ON" if "+parmetis" in spec else "OFF"),
-            "-DWITH_TESTS=on",
+            "-DWITH_TESTS={}".format("ON" if self.run_tests else "OFF"),
             "-DWITH_COVERAGE=off",
         ]
+        if "^openmpi" in spec and self.run_tests:
+            args.append("-DMPIEXEC_PREFLAGS=--oversubscribe")
+        return args
 
