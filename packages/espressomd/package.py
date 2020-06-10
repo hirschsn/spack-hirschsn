@@ -23,9 +23,11 @@ class Espressomd(CMakePackage):
     depends_on('cmake@3.12.0:', type='build')
 
     depends_on('mpi')
-    depends_on('boost+serialization+mpi@1.67.0')
+    depends_on('boost+serialization+mpi+system+filesystem+test@1.65.0:')
     depends_on('python@3.5:')
     depends_on('py-cython')
+    depends_on('py-setuptools')
+    depends_on('py-numpy')
     depends_on('gsl', when='+gsl')
     depends_on('hdf5+mpi', when='+hdf5')
 
